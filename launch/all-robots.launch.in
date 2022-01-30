@@ -1,0 +1,22 @@
+<launch>
+  <!--
+       Default GUI to true for local Gazebo client. Allows override
+       to set disable GUI for RoboMaker. See part0.launch.
+  -->
+  <arg name="use_gui" default="true"/>
+  <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="world" default="simple" doc="world [simple]"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find murl)/worlds/$(arg world).world"/>
+    <arg name="paused" value="true"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="$(arg use_gui)"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+  <!-- INCLUDE ROBOTS -->
+</launch>

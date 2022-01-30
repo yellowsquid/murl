@@ -1,0 +1,9 @@
+<launch>
+	<arg name="robots" />
+    <arg name="cloud" />
+	<node pkg="murl"
+          type="localisation.py"
+          name="localisation"
+          args="--robots=$(arg robots) --cloud=$(arg cloud)"
+          output="screen"/>
+</launch>

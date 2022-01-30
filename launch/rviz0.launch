@@ -1,0 +1,13 @@
+<launch>
+  <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+
+  <!--
+       Default -Open rViz config to true for local rviz client.
+       Allows override to disable it for RoboMaker. See hello_world_aws.launch.
+  -->
+  <arg name="open_rviz_config" default="true"/>
+  <group if="$(arg open_rviz_config)">
+    <node name="rviz0" pkg="rviz" type="rviz" args="-d $(find murl)/rviz/robot0.rviz"/>
+  </group>
+
+</launch>
