@@ -1,0 +1,26 @@
+#+TITLE: Multi-Robot Localisation
+
+* Simulation
+
+Decide which particle cloud to use:
+- ~murl.particles.baseline~: a simple particle filter
+- ~murl.particles.centralised~: an attempt at including inter-robot ranging
+  data.
+
+Next, begin gazebo with the desired number of robots:
+
+#+begin_src shell
+roslaunch murl gazebo.launch robots:=3
+#+end_src
+
+Optionally start rviz for robots 0 or 1.
+
+#+begin_src shell
+roslaunch murl rviz0.launch
+#+end_src
+
+Finally, begin the localisation controller:
+
+#+begin_src shell
+roslaunch murl localisation.launch robots:=3 cloud:=murl.particles.baseline
+#+end_src
