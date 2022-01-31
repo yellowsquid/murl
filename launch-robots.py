@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
+import argparse
 import math
+from shutil import which
+import subprocess
 import sys
 from typing import Tuple
 
@@ -46,13 +49,16 @@ def splice_robots(text : str, n : int) -> str:
 
 
 def main(filename : str, n : int):
-    with open(filename, 'r') as f:
-        print(splice_robots(f.read(), n))
+    out = None
+    with open(filename, 'r') as fd:
+        out = splice_robots(fd.read(), n)
+
+    subprocess.run([which('roslaunch'), '-'], input=out, text=True)
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        sys.exit(1)
-    filename = sys.argv[1]
-    robots = int(sys.argv[2])
-    main(filename, robots)
+    parser = argparse.ArgumentParser(description='Launches gazebo')
+    parser.add_argument('--template', action='store', type=str, help='Template launch file.')
+    parser.add_argument('--robots', action='store', type=int, help='Number of robots.')
+    args, unknown = parser.parse_known_args()
+    main(args.template, args.robots)

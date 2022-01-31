@@ -1,0 +1,9 @@
+<launch>
+	<arg name="robots" />
+  <arg name="template" default="$(find murl)/launch/all-robots.launch.in" />
+	<node pkg="murl"
+        type="launch-robots.py"
+        name="launch_robots"
+        args="--template=$(arg template) --robots=$(arg robots)"
+        output="screen"/>
+</launch>
